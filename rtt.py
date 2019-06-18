@@ -25,6 +25,7 @@ EstimatedRTT = np.mean(RTTs)
 
 for i in range(RTTs.shape[0]):
     EstimatedRTT = (1 - a) * EstimatedRTT + a * RTTs[i]
+    RTTsMean = np.append(RTTsMean, EstimatedRTT)
 
 DevRTT = np.mean(RTTs)
 
@@ -32,10 +33,7 @@ for i in range(RTTs.shape[0]):
     DevRTT = (1 - b) * DevRTT + b * abs(RTTs[i] - EstimatedRTT)
 
 TimeoutInterval = EstimatedRTT + 4 * DevRTT
-
-for i in range(RTTs.shape[0]):
-    RTTsMean = np.append(RTTsMean, EstimatedRTT)
-
+    
 print("Media Movel Ponderada: " + str(RTTsMean[0]))
 print("Desvio Padrao: " + str(DevRTT))
 print("Intervalo de timeout: " + str(TimeoutInterval))
